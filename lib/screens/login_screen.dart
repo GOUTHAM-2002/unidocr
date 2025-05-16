@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildDesktopLayout(BuildContext context) {
-    final appGradients = Theme.of(context).extension<AppGradients>()!;
+    final appGradients = Theme.of(context).extension<AppGradients>();
     
     return Row(
       children: [
@@ -122,7 +122,14 @@ class _LoginScreenState extends State<LoginScreen> {
           flex: 5,
           child: Container(
             decoration: BoxDecoration(
-              gradient: appGradients.deepOcean,
+              gradient: appGradients?.deepOcean ?? const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  AppColors.unidocDeepBlue,
+                  AppColors.unidocPrimaryBlue,
+                ],
+              ),
             ),
             child: Padding(
               padding: const EdgeInsets.all(40.0),
