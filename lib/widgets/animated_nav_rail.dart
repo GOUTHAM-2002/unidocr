@@ -44,7 +44,7 @@ class _AnimatedNavRailState extends State<AnimatedNavRail> {
                 child: IconButton(
                   icon: Icon(
                     _isExpanded ? Icons.chevron_left : Icons.chevron_right,
-                    color: AppTheme.neonBlue,
+                    color: Theme.of(context).primaryColor,
                   ),
                   onPressed: () {
                     setState(() {

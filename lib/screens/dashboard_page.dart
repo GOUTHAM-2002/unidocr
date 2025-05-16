@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:unidoc/theme/app_theme.dart';
-import 'package:unidoc/widgets/animated_gradient_background.dart';
-import 'package:unidoc/widgets/animated_nav_rail.dart';
+import 'package:go_router/go_router.dart';
+import 'package:unidoc/router/app_router.dart';
+
+// TODO: This entire screen is an older version and needs to be either removed
+// or completely redesigned based on 'testprojects/src/pages/Dashboard.tsx' and integrated with the new MainLayout.
+// The current 'dashboard_screen.dart' is the primary dashboard.
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -12,180 +16,138 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  int _selectedIndex = 0;
+  Widget _buildDashboardCard(
+    BuildContext context,
+    String title,
+    String value,
+    IconData icon,
+    Color iconColor,
+  ) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
 
-  final List<NavigationRailDestination> _destinations = [
-    const NavigationRailDestination(
-      icon: Icon(Icons.dashboard_outlined),
-      selectedIcon: Icon(Icons.dashboard),
-      label: Text('Dashboard'),
-    ),
-    const NavigationRailDestination(
-      icon: Icon(Icons.calendar_today_outlined),
-      selectedIcon: Icon(Icons.calendar_today),
-      label: Text('Calendar'),
-    ),
-    const NavigationRailDestination(
-      icon: Icon(Icons.assignment_outlined),
-      selectedIcon: Icon(Icons.assignment),
-      label: Text('Tasks'),
-    ),
-    const NavigationRailDestination(
-      icon: Icon(Icons.message_outlined),
-      selectedIcon: Icon(Icons.message),
-      label: Text('Messages'),
-    ),
-    const NavigationRailDestination(
-      icon: Icon(Icons.settings_outlined),
-      selectedIcon: Icon(Icons.settings),
-      label: Text('Settings'),
-    ),
-    const NavigationRailDestination(
-      icon: Icon(Icons.admin_panel_settings_outlined),
-      selectedIcon: Icon(Icons.admin_panel_settings),
-      label: Text('Admin Panel'),
-    ),
-  ];
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: AppRadii.lgRadius),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                Icon(icon, color: iconColor, size: 24),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              value,
+              style: textTheme.displaySmall?.copyWith(
+                color: iconColor, 
+                fontWeight: FontWeight.bold
+              ),
+            ),
+          ],
+        ),
+      ),
+    ).animate().fadeIn(duration: 600.ms).slideY(
+          begin: 0.2,
+          end: 0,
+          duration: 600.ms,
+          curve: Curves.easeOutBack,
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedGradientBackground(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Row(
+    // final stats = DataService.getDashboardStats(); // Assuming this provides Map<String, dynamic>
+    // Using placeholder stats for now
+    final stats = {
+      'totalCustomers': 123,
+      'activeCustomers': 88,
+      'pendingQuotes': 12,
+      'totalRevenue': 56789.50,
+    };
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
+
+    return Scaffold(
+      backgroundColor: colorScheme.background,
+      appBar: AppBar(
+        title: Text('Old Dashboard Page (To Be Replaced)', style: textTheme.titleLarge),
+        backgroundColor: colorScheme.surfaceVariant,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Animated navigation rail
-            AnimatedNavRail(
-              selectedIndex: _selectedIndex,
-              onDestinationSelected: (int index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              destinations: _destinations,
-            ),
-
-            const VerticalDivider(
-              thickness: 1,
-              width: 1,
-              color: Colors.white24,
-            ),
-
-            // Main content
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Header
-                    Text(
-                      'Dashboard',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    )
-                    .animate()
-                    .fadeIn(duration: 600.ms)
-                    .slideY(
-                      begin: -0.2,
-                      end: 0,
-                      duration: 600.ms,
-                      curve: Curves.easeOutBack,
-                    ),
-
-                    const SizedBox(height: 24),
-
-                    // Content cards
-                    Expanded(
-                      child: GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                        children: [
-                          _buildDashboardCard(
-                            'Total Tasks',
-                            '24',
-                            Icons.task_alt,
-                            AppTheme.neonBlue,
-                          ),
-                          _buildDashboardCard(
-                            'Upcoming Events',
-                            '8',
-                            Icons.event,
-                            AppTheme.neonPurple,
-                          ),
-                          _buildDashboardCard(
-                            'Messages',
-                            '12',
-                            Icons.message,
-                            AppTheme.neonPink,
-                          ),
-                          _buildDashboardCard(
-                            'Notifications',
-                            '5',
-                            Icons.notifications,
-                            AppTheme.neonGreen,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+            Text(
+              'Stats Overview (Old Version)',
+              style: textTheme.headlineSmall,
+            )
+                .animate()
+                .fadeIn(duration: 600.ms)
+                .slideY(
+                  begin: -0.2,
+                  end: 0,
+                  duration: 600.ms,
+                  curve: Curves.easeOutBack,
                 ),
+
+            const SizedBox(height: 24),
+
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                childAspectRatio: 1.5,
+                children: [
+                  _buildDashboardCard(
+                    context,
+                    'Total Customers',
+                    stats['totalCustomers'].toString(),
+                    Icons.people,
+                    AppColors.unidocPrimaryBlue,
+                  ),
+                  _buildDashboardCard(
+                    context,
+                    'Active Customers',
+                    stats['activeCustomers'].toString(),
+                    Icons.person,
+                    AppColors.unidocCyanBlue,
+                  ),
+                  _buildDashboardCard(
+                    context,
+                    'Pending Quotes',
+                    stats['pendingQuotes'].toString(),
+                    Icons.description,
+                    AppColors.unidocSecondaryOrange,
+                  ),
+                  _buildDashboardCard(
+                    context,
+                    'Total Revenue',
+                    '\$${(stats['totalRevenue'] as double?)?.toStringAsFixed(2) ?? '0.00'}',
+                    Icons.attach_money,
+                    AppColors.unidocSuccess,
+                  ),
+                ],
               ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  Widget _buildDashboardCard(
-    String title,
-    String value,
-    IconData icon,
-    Color color,
-  ) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: color.withOpacity(0.3),
-        ),
-        boxShadow: AppTheme.neonShadow(color),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            size: 48,
-            color: color,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            value,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              color: color,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Colors.white70,
-            ),
-          ),
-        ],
-      ),
-    ).animate()
-      .fadeIn(duration: 600.ms)
-      .scale(
-        begin: const Offset(0.8, 0.8),
-        end: const Offset(1, 1),
-        duration: 600.ms,
-        curve: Curves.easeOutBack,
-      );
   }
 } 

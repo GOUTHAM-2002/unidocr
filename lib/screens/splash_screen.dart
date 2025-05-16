@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:go_router/go_router.dart';
+import 'package:unidoc/router/app_router.dart';
 import 'package:unidoc/theme/app_theme.dart';
-import 'package:unidoc/widgets/animated_gradient_background.dart';
-import 'login_screen.dart';
+import 'package:unidoc/widgets/common/unidoc_logo.dart'; // Assuming a logo widget exists or will be created
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,94 +17,56 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToLogin();
-  }
-
-  Future<void> _navigateToLogin() async {
-    await Future.delayed(const Duration(seconds: 3));
-    if (!mounted) return;
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const LoginScreen()),
-    );
+    Timer(const Duration(seconds: 3), () {
+      if (mounted) {
+        // In a real app, you might check auth status here
+        // For now, always go to login
+        context.go(RoutePaths.login);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
     return Scaffold(
-      body: AnimatedGradientBackground(
+      // Use a gradient background similar to the Auth page's decorative pane
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: AppGradients.primaryGradient(theme.colorScheme),
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withOpacity(0.1),
-                  border: Border.all(
-                    color: AppTheme.neonBlue.withOpacity(0.3),
-                    width: 2,
-                  ),
-                  boxShadow: AppTheme.neonShadow(AppTheme.neonBlue),
-                ),
-                child: const Icon(
-                  Icons.school_outlined,
-                  size: 60,
-                  color: Colors.white,
-                ),
-              ).animate()
-                .scale(
-                  duration: 600.ms,
-                  begin: const Offset(0.5, 0.5),
-                  end: const Offset(1, 1),
-                )
-                .fadeIn(duration: 600.ms),
-
+              const UnidocLogo(size: 100, lightColor: Colors.white, darkColor: AppColors.unidocBlue) // Example color usage
+                  .animate()
+                  .fadeIn(duration: 1000.ms)
+                  .scale(delay: 200.ms, duration: 800.ms, curve: Curves.elasticOut),
               const SizedBox(height: 24),
-
-              // App Name
               Text(
-                'UniDoc',
-                style: AppTheme.headingStyle.copyWith(
-                  fontSize: 48,
-                  shadows: AppTheme.neonShadow(AppTheme.neonBlue),
+                'Unidoc',
+                style: textTheme.headlineLarge?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
-              ).animate()
-                .fadeIn(delay: 200.ms, duration: 600.ms)
-                .slideY(
-                  begin: -0.2,
-                  end: 0,
-                  duration: 600.ms,
-                ),
-
-              const SizedBox(height: 8),
-
-              // Tagline
+              )
+                  .animate()
+                  .fadeIn(delay: 600.ms, duration: 1000.ms)
+                  .slideY(begin: 0.5, end: 0, duration: 800.ms, curve: Curves.easeOutCirc),
+              const SizedBox(height: 12),
               Text(
-                'Your Office Companion',
-                style: AppTheme.subheadingStyle,
-              ).animate()
-                .fadeIn(delay: 400.ms, duration: 600.ms),
-
-              const SizedBox(height: 48),
-
-              // Loading Indicator
-              SizedBox(
-                width: 40,
-                height: 40,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(AppTheme.neonBlue),
-                  strokeWidth: 3,
+                'Your office is in your pocket.',
+                textAlign: TextAlign.center,
+                style: textTheme.titleMedium?.copyWith(
+                  color: Colors.white.withOpacity(0.85),
                 ),
-              ).animate()
-                .fadeIn(delay: 600.ms, duration: 600.ms)
-                .scale(
-                  duration: 600.ms,
-                  begin: const Offset(0.5, 0.5),
-                  end: const Offset(1, 1),
-                ),
+              )
+                  .animate()
+                  .fadeIn(delay: 1000.ms, duration: 1000.ms)
+                  .slideY(begin: 0.5, end: 0, duration: 800.ms, curve: Curves.easeOutCirc),
             ],
           ),
         ),
