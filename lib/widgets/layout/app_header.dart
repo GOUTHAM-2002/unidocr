@@ -4,7 +4,8 @@ import 'package:unidoc/router/app_router.dart';
 import 'package:unidoc/theme/app_theme.dart';
 
 class AppHeader extends StatelessWidget implements PreferredSizeWidget {
-  const AppHeader({super.key});
+  final bool isMobile;
+  const AppHeader({super.key, required this.isMobile});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
 
     // Determine if the sidebar is present and visible (for mobile/desktop differentiation of leading widget)
     // This is a simplified check. A more robust way might involve a layout controller or inherited widget.
-    final bool hasVisibleSidebar = MediaQuery.of(context).size.width > 800; 
+    final bool hasVisibleSidebar = !isMobile && MediaQuery.of(context).size.width > 800; 
 
     return AppBar(
       backgroundColor: colorScheme.surface, // Use surface color for AppBar background
@@ -45,7 +46,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                 isDense: true,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                 filled: true,
-                fillColor: colorScheme.surfaceVariant.withOpacity(0.5),
+                fillColor: colorScheme.surfaceContainerHighest.withOpacity(0.5),
                 border: OutlineInputBorder(
                   borderRadius: AppRadii.mdRadius, // from theme
                   borderSide: BorderSide.none,
@@ -78,7 +79,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
         // Notifications Dropdown (Placeholder)
         IconButton(
           icon: Badge(
-            label: Text('3'), // Example badge count
+            label: const Text('3'), // Example badge count
             backgroundColor: colorScheme.error,
             isLabelVisible: true, // Set to false if no notifications
             child: Icon(Icons.notifications_none_rounded, color: colorScheme.onSurfaceVariant),
@@ -97,12 +98,6 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
           child: PopupMenuButton<String>(
             offset: const Offset(0, kToolbarHeight -10),
             tooltip: 'User Menu',
-            child: CircleAvatar(
-              backgroundColor: colorScheme.primaryContainer,
-              foregroundColor: colorScheme.onPrimaryContainer,
-              child: const Text('U'), // Placeholder for User Initials or Icon
-              radius: 18,
-            ),
             onSelected: (value) {
               if (value == 'profile') {
                 // context.go(RoutePaths.profile); // Example navigation
@@ -131,6 +126,12 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
             ],
             shape: RoundedRectangleBorder(borderRadius: AppRadii.mdRadius),
             color: colorScheme.surface,
+            child: CircleAvatar(
+              backgroundColor: colorScheme.primaryContainer,
+              foregroundColor: colorScheme.onPrimaryContainer,
+              child: const Text('U'), // Placeholder for User Initials or Icon
+              radius: 18,
+            ),
           ),
         ),
         const SizedBox(width: 8),

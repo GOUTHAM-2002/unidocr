@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:unidoc/theme/app_theme.dart';
 import 'package:unidoc/widgets/glass_card.dart';
 
 class AnimatedNavRail extends StatefulWidget {

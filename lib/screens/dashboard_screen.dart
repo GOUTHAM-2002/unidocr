@@ -59,115 +59,97 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
 
-    return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              automaticallyImplyLeading: false, // Handled by MainLayout's AppBar
-              pinned: false, // Could be true if we want the header to stick
-              floating: true, // Header appears when scrolling up
-              backgroundColor: theme.scaffoldBackgroundColor,
-              elevation: 0,
-              toolbarHeight: 100, // Increased height for title and actions
-              flexibleSpace: FlexibleSpaceBar(
-                titlePadding: EdgeInsets.zero,
-                expandedTitleScale: 1.0, // Keep title size consistent
-                background: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return DefaultTabController(
+      length: _isSmallScreen ? 3 : 5,
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 70,
+          title: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Dashboard',
+                  style: textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'Overview of your business performance',
+                  style: textTheme.bodyMedium?.copyWith(color: AppColors.unidocMedium),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 180,
+                child: DropdownButtonFormField<String>(
+                  value: _selectedTimeRange,
+                  items: _timeRangeOptions.map((option) {
+                    return DropdownMenuItem<String>(
+                      value: option['value'],
+                      child: Row(
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Dashboard',
-                                style: textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Overview of your business performance',
-                                style: textTheme.bodyMedium?.copyWith(color: AppColors.unidocMedium),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 180,
-                            child: DropdownButtonFormField<String>(
-                              value: _selectedTimeRange,
-                              items: _timeRangeOptions.map((option) {
-                                return DropdownMenuItem<String>(
-                                  value: option['value'],
-                                  child: Row(
-                                    children: [
-                                      const Icon(LucideIcons.calendarDays, size: 16, color: AppColors.unidocMedium),
-                                      const SizedBox(width: 8),
-                                      Text(option['label']),
-                                    ],
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                if (newValue != null) {
-                                  setState(() {
-                                    _selectedTimeRange = newValue;
-                                    // TODO: Trigger data refetch
-                                  });
-                                }
-                              },
-                              style: textTheme.bodyMedium,
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                border: OutlineInputBorder(
-                                  borderRadius: AppRadii.mdRadius,
-                                  borderSide: BorderSide(color: AppColors.border),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: AppRadii.mdRadius,
-                                  borderSide: BorderSide(color: AppColors.border),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: AppRadii.mdRadius,
-                                  borderSide: BorderSide(color: colorScheme.primary, width: 1.5),
-                                ),
-                                fillColor: colorScheme.surface,
-                                filled: true,
-                                isDense: true,
-                              ),
-                              dropdownColor: colorScheme.surface,
-                            ),
-                          ),
+                          const Icon(LucideIcons.calendarDays, size: 16, color: AppColors.unidocMedium),
+                          const SizedBox(width: 8),
+                          Text(option['label']),
                         ],
                       ),
-                    ],
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        _selectedTimeRange = newValue;
+                        // TODO: Trigger data refetch
+                      });
+                    }
+                  },
+                  style: textTheme.bodyMedium,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    border: OutlineInputBorder(
+                      borderRadius: AppRadii.mdRadius,
+                      borderSide: BorderSide(color: AppColors.border),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: AppRadii.mdRadius,
+                      borderSide: BorderSide(color: AppColors.border),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: AppRadii.mdRadius,
+                      borderSide: BorderSide(color: colorScheme.primary, width: 1.5),
+                    ),
+                    fillColor: colorScheme.surface,
+                    filled: true,
+                    isDense: true,
                   ),
+                  dropdownColor: colorScheme.surface,
                 ),
               ),
-              bottom: TabBar(
-                controller: _tabController,
-                labelColor: colorScheme.primary,
-                unselectedLabelColor: AppColors.unidocMedium,
-                indicatorColor: colorScheme.primary,
-                indicatorWeight: 2.0,
-                labelStyle: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
-                unselectedLabelStyle: textTheme.bodyMedium,
-                isScrollable: _isSmallScreen, // Allow scrolling on small screens
-                tabs: [
-                  _buildTab(LucideIcons.activity, 'Overview'),
-                  _buildTab(LucideIcons.calendarDays, 'Schedule'),
-                  _buildTab(LucideIcons.users, 'Customers'),
-                  if (!_isSmallScreen) _buildTab(LucideIcons.dollarSign, 'Agreements', showOnSmallScreen: false),
-                  if (!_isSmallScreen) _buildTab(LucideIcons.userCircle, 'Users', showOnSmallScreen: false),
-                ],
-              ),
             ),
-          ];
-        },
+          ],
+          bottom: TabBar(
+            controller: _tabController,
+            labelColor: colorScheme.primary,
+            unselectedLabelColor: AppColors.unidocMedium,
+            indicatorColor: colorScheme.primary,
+            indicatorWeight: 2.0,
+            labelStyle: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+            unselectedLabelStyle: textTheme.bodyMedium,
+            isScrollable: _isSmallScreen, // Allow scrolling on small screens
+            tabs: [
+              _buildTab(LucideIcons.activity, 'Overview'),
+              _buildTab(LucideIcons.calendarDays, 'Schedule'),
+              _buildTab(LucideIcons.users, 'Customers'),
+              if (!_isSmallScreen) _buildTab(LucideIcons.dollarSign, 'Agreements', showOnSmallScreen: false),
+              if (!_isSmallScreen) _buildTab(LucideIcons.userCircle, 'Users', showOnSmallScreen: false),
+            ],
+          ),
+        ),
         body: TabBarView(
           controller: _tabController,
           children: [
@@ -216,159 +198,164 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Stats Cards Grid
-          LayoutBuilder(
-            builder: (context, constraints) {
-              int crossAxisCount = 4;
-              if (constraints.maxWidth < 1200) crossAxisCount = 2;
-              if (constraints.maxWidth < 600) crossAxisCount = 1;
-              
-              double childAspectRatio = (constraints.maxWidth < 600) ? 2.5 : (constraints.maxWidth < 1200 ? 1.8 : 2.2);
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Stats Cards Grid
+            LayoutBuilder(
+              builder: (context, constraints) {
+                int crossAxisCount = 4;
+                if (constraints.maxWidth < 1200) crossAxisCount = 2;
+                if (constraints.maxWidth < 600) crossAxisCount = 1;
+                
+                double childAspectRatio = (constraints.maxWidth < 600) ? 2.5 : (constraints.maxWidth < 1200 ? 1.8 : 2.2);
 
-
-              return GridView.count(
-                crossAxisCount: crossAxisCount,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                childAspectRatio: childAspectRatio,
-                children: [
-                  _buildStatCard(
-                    title: 'Revenue',
-                    value: '\$${stats.totalRevenue.toStringAsFixed(0)}',
-                    changePercent: stats.revenueChangePercent,
-                    icon: LucideIcons.dollarSign,
-                    iconColor: Colors.green.shade600,
-                  ),
-                  _buildStatCard(
-                    title: 'Jobs Completed',
-                    value: stats.completedJobs.toString(),
-                    changePercent: stats.jobsChangePercent,
-                    icon: LucideIcons.checkCircle2,
-                     iconColor: Colors.blue.shade600,
-                  ),
-                  _buildStatCard(
-                    title: 'Active Customers',
-                    value: stats.activeCustomers.toString(),
-                    changePercent: stats.customersChangePercent,
-                    icon: LucideIcons.users,
-                    iconColor: Colors.orange.shade600,
-                  ),
-                  _buildStatCard(
-                    title: 'Avg. Job Value',
-                    value: '\$${stats.avgJobValue.toStringAsFixed(0)}',
-                    changePercent: stats.avgJobValueChangePercent,
-                    icon: LucideIcons.trendingUp, // Or trendingDown based on value
-                    iconColor: Colors.purple.shade600,
-                  ),
-                ],
-              );
-            }
-          ),
-          const SizedBox(height: 24),
-
-          // Performance Overview & Customer Breakdown Charts
-          LayoutBuilder(
-            builder: (context, constraints) {
-              bool isTabletOrLarger = constraints.maxWidth >= 768;
-              if (isTabletOrLarger) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: _buildPerformanceChartCard(context),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      flex: 1,
-                      child: _buildCustomerBreakdownCard(context),
-                    ),
-                  ],
-                );
-              } else {
-                return Column(
-                  children: [
-                    _buildPerformanceChartCard(context),
-                    const SizedBox(height: 16),
-                    _buildCustomerBreakdownCard(context),
-                  ],
-                );
-              }
-            },
-          ),
-          const SizedBox(height: 24),
-
-          // Top Performing Users & Recent Activity
-           LayoutBuilder(
-            builder: (context, constraints) {
-              bool isTabletOrLarger = constraints.maxWidth >= 768;
-              if (isTabletOrLarger) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: _buildTopPerformingUsersCard(context),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: _buildRecentActivityCard(context),
-                    ),
-                  ],
-                );
-              } else {
-                return Column(
-                  children: [
-                    _buildTopPerformingUsersCard(context),
-                    const SizedBox(height: 16),
-                    _buildRecentActivityCard(context),
-                  ],
-                );
-              }
-            },
-          ),
-          const SizedBox(height: 16),
-          // Info banner at the bottom
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColors.unidocPrimaryBlue.withOpacity(0.08),
-              borderRadius: AppRadii.lgRadius,
-              border: Border.all(color: AppColors.unidocPrimaryBlue.withOpacity(0.3)),
-            ),
-            child: Row(
-              children: [
-                Icon(LucideIcons.info, size: 18, color: AppColors.unidocPrimaryBlue),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                return Container(
+                  constraints: const BoxConstraints(minHeight: 100),
+                  child: GridView.count(
+                    crossAxisCount: crossAxisCount,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                    childAspectRatio: childAspectRatio,
                     children: [
-                      Text(
-                        'Analytics insights available',
-                        style: textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.unidocPrimaryBlue,
-                        ),
+                      _buildStatCard(
+                        title: 'Revenue',
+                        value: '\$${stats.totalRevenue.toStringAsFixed(0)}',
+                        changePercent: stats.revenueChangePercent,
+                        icon: LucideIcons.dollarSign,
+                        iconColor: Colors.green.shade600,
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Deeper analytics for all business areas are available. Click on the Analytics button in each section for detailed insights.',
-                        style: textTheme.bodySmall?.copyWith(
-                          color: AppColors.unidocDeepBlue,
-                        ),
+                      _buildStatCard(
+                        title: 'Jobs Completed',
+                        value: stats.completedJobs.toString(),
+                        changePercent: stats.jobsChangePercent,
+                        icon: LucideIcons.checkCircle2,
+                         iconColor: Colors.blue.shade600,
+                      ),
+                      _buildStatCard(
+                        title: 'Active Customers',
+                        value: stats.activeCustomers.toString(),
+                        changePercent: stats.customersChangePercent,
+                        icon: LucideIcons.users,
+                        iconColor: Colors.orange.shade600,
+                      ),
+                      _buildStatCard(
+                        title: 'Avg. Job Value',
+                        value: '\$${stats.avgJobValue.toStringAsFixed(0)}',
+                        changePercent: stats.avgJobValueChangePercent,
+                        icon: LucideIcons.trendingUp, // Or trendingDown based on value
+                        iconColor: Colors.purple.shade600,
                       ),
                     ],
                   ),
-                ),
-              ],
+                );
+              }
             ),
-          ),
-        ],
+            const SizedBox(height: 24),
+
+            // Performance Overview & Customer Breakdown Charts
+            LayoutBuilder(
+              builder: (context, constraints) {
+                bool isTabletOrLarger = constraints.maxWidth >= 768;
+                if (isTabletOrLarger) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: _buildPerformanceChartCard(context),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        flex: 1,
+                        child: _buildCustomerBreakdownCard(context),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Column(
+                    children: [
+                      _buildPerformanceChartCard(context),
+                      const SizedBox(height: 16),
+                      _buildCustomerBreakdownCard(context),
+                    ],
+                  );
+                }
+              },
+            ),
+            const SizedBox(height: 24),
+
+            // Top Performing Users & Recent Activity
+             LayoutBuilder(
+              builder: (context, constraints) {
+                bool isTabletOrLarger = constraints.maxWidth >= 768;
+                if (isTabletOrLarger) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: _buildTopPerformingUsersCard(context),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: _buildRecentActivityCard(context),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Column(
+                    children: [
+                      _buildTopPerformingUsersCard(context),
+                      const SizedBox(height: 16),
+                      _buildRecentActivityCard(context),
+                    ],
+                  );
+                }
+              },
+            ),
+            const SizedBox(height: 16),
+            // Info banner at the bottom
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.unidocPrimaryBlue.withOpacity(0.08),
+                borderRadius: AppRadii.lgRadius,
+                border: Border.all(color: AppColors.unidocPrimaryBlue.withOpacity(0.3)),
+              ),
+              child: Row(
+                children: [
+                  const Icon(LucideIcons.info, size: 18, color: AppColors.unidocPrimaryBlue),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Analytics insights available',
+                          style: textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.unidocPrimaryBlue,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Deeper analytics for all business areas are available. Click on the Analytics button in each section for detailed insights.',
+                          style: textTheme.bodySmall?.copyWith(
+                            color: AppColors.unidocDeepBlue,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -460,7 +447,7 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
             Text('Performance Overview', style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
             Text('Revenue and job completion trends', style: textTheme.bodySmall?.copyWith(color: AppColors.unidocMedium)),
             const SizedBox(height: 16),
-            Container(
+            SizedBox(
               height: 250, // Fixed height for the chart area
               child: LineChartWidget(performanceData: performanceData),
             ),
@@ -486,7 +473,7 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
             Text('Customer Breakdown', style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
             Text('By business type', style: textTheme.bodySmall?.copyWith(color: AppColors.unidocMedium)),
             const SizedBox(height: 16),
-            Container(
+            SizedBox(
               height: 250, // Fixed height for the chart area
               child: PieChartWidget(customerSegments: customerBreakdownData),
             ),

@@ -248,20 +248,20 @@ class AppTheme {
 
   static const double _baseRadiusValue = 12.0; // from --radius: 0.75rem; (0.75 * 16px = 12px)
 
-  static final Color unidocPrimary = Color(0xff1376f8);
-  static final Color unidocSecondary = Color(0xFFF56565);
-  static final Color unidocDark = Color(0xFF2D3748);
-  static final Color unidocMedium = Color(0xFF718096);
-  static final Color unidocLight = Color(0xFFF7FAFC);
-  static final Color unidocBgLight = Color(0xFFF9FAFB);
+  static const Color unidocPrimary = Color(0xff1376f8);
+  static const Color unidocSecondary = Color(0xFFF56565);
+  static const Color unidocDark = Color(0xFF2D3748);
+  static const Color unidocMedium = Color(0xFF718096);
+  static const Color unidocLight = Color(0xFFF7FAFC);
+  static const Color unidocBgLight = Color(0xFFF9FAFB);
   
   // Enhanced with more vibrant colors
-  static final Color primaryGradientStart = Color(0xff1e88e5);
-  static final Color primaryGradientEnd = Color(0xff0d47a1);
-  static final Color successColor = Color(0xff2ecc71);
-  static final Color warningColor = Color(0xfff39c12);
-  static final Color errorColor = Color(0xffe74c3c);
-  static final Color infoColor = Color(0xff3498db);
+  static const Color primaryGradientStart = Color(0xff1e88e5);
+  static const Color primaryGradientEnd = Color(0xff0d47a1);
+  static const Color successColor = Color(0xff2ecc71);
+  static const Color warningColor = Color(0xfff39c12);
+  static const Color errorColor = Color(0xffe74c3c);
+  static const Color infoColor = Color(0xff3498db);
 
   static ThemeData get lightTheme {
     final baseTheme = ThemeData.light();
@@ -283,7 +283,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         backgroundColor: unidocPrimary,
         foregroundColor: Colors.white,
       ),
@@ -294,7 +294,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         side: BorderSide(color: unidocPrimary, width: 1.5),
         foregroundColor: unidocPrimary,
       ),
@@ -304,8 +304,8 @@ class AppTheme {
     final textButtonTheme = TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: unidocPrimary,
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        textStyle: TextStyle(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        textStyle: const TextStyle(
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -315,7 +315,7 @@ class AppTheme {
     final inputDecorationTheme = InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,
-      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(color: Colors.grey.shade300, width: 1),
@@ -394,12 +394,12 @@ class AppTheme {
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
             blurRadius: 4,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
-      textStyle: TextStyle(color: Colors.white),
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      textStyle: const TextStyle(color: Colors.white),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     );
     
     // Chip theme
@@ -408,7 +408,7 @@ class AppTheme {
       disabledColor: Colors.grey.shade200,
       selectedColor: unidocPrimary.withOpacity(0.1),
       secondarySelectedColor: unidocPrimary,
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(color: Colors.grey.shade300),
@@ -417,7 +417,7 @@ class AppTheme {
         color: unidocDark,
         fontWeight: FontWeight.w500,
       ),
-      secondaryLabelStyle: TextStyle(
+      secondaryLabelStyle: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.w500,
       ),
@@ -431,8 +431,8 @@ class AppTheme {
       backgroundColor: Colors.white,
       selectedItemColor: unidocPrimary,
       unselectedItemColor: unidocMedium,
-      selectedLabelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
-      unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
+      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+      unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
       elevation: 8,
       type: BottomNavigationBarType.fixed,
     );
@@ -443,8 +443,6 @@ class AppTheme {
       colorScheme: ColorScheme.light(
         primary: unidocPrimary,
         secondary: unidocSecondary,
-        background: unidocBgLight,
-        onBackground: unidocDark,
         surface: Colors.white,
         onSurface: unidocDark,
         error: errorColor,

@@ -230,234 +230,236 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Stack(
                       children: [
                         // App content
-                        Column(
-                          children: [
-                            // Unidoc logo and header
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              child: Row(
-                                children: [
-                                  const UnidocLogo(
-                                    size: 32,
-                                    lightColor: AppColors.unidocPrimaryBlue,
-                                    darkColor: AppColors.unidocDeepBlue,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    'Unidoc',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey[800],
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              // Unidoc logo and header
+                              Container(
+                                padding: const EdgeInsets.all(16),
+                                child: Row(
+                                  children: [
+                                    const UnidocLogo(
+                                      size: 32,
+                                      lightColor: AppColors.unidocPrimaryBlue,
+                                      darkColor: AppColors.unidocDeepBlue,
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            
-                            // New Service Call card
-                            Container(
-                              margin: const EdgeInsets.all(16),
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: Colors.grey[200]!),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey[200]!,
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Icon(LucideIcons.clock, size: 16, color: AppColors.unidocPrimaryBlue),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        'New Service Call',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                          color: Colors.grey[800],
-                                        ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      'Unidoc',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey[800],
                                       ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 16),
-                                  
-                                  // Customer selection
-                                  Container(
-                                    padding: const EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[50],
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(color: Colors.grey[200]!),
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  ],
+                                ),
+                              ),
+                              
+                              // New Service Call card
+                              Container(
+                                margin: const EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(color: Colors.grey[200]!),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey[200]!,
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
                                       children: [
-                                        Row(
-                                          children: [
-                                            CircleAvatar(
-                                              radius: 12,
-                                              backgroundColor: AppColors.unidocPrimaryBlue.withOpacity(0.2),
-                                              child: const Text('1', style: TextStyle(fontSize: 12, color: AppColors.unidocPrimaryBlue)),
-                                            ),
-                                            const SizedBox(width: 8),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Select',
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.grey[800],
-                                                  ),
-                                                ),
-                                                const Text(
-                                                  'Customer',
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: AppColors.unidocPrimaryBlue,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Icon(Icons.arrow_drop_down, color: Colors.grey[600]),
-                                      ],
-                                    ),
-                                  ),
-                                  
-                                  const SizedBox(height: 12),
-                                  
-                                  // Service details
-                                  Row(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 12,
-                                        backgroundColor: Colors.grey[200],
-                                        child: Text('2', style: TextStyle(fontSize: 12, color: Colors.grey[700])),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        'Service Details',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.grey[600],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            
-                            // Customer chat example
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16),
-                              child: Row(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor: AppColors.unidocLightBlue,
-                                    radius: 20,
-                                    child: const Text('JD', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'John Doe',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
-                                                color: Colors.grey[800],
-                                              ),
-                                            ),
-                                            Text(
-                                              'Now',
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.grey[500],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                        const Icon(LucideIcons.clock, size: 16, color: AppColors.unidocPrimaryBlue),
+                                        const SizedBox(width: 8),
                                         Text(
-                                          'Online',
+                                          'New Service Call',
                                           style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.grey[500],
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                            color: Colors.grey[800],
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            
-                            const SizedBox(height: 16),
-                            
-                            // Message box
-                            Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 16),
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'When will you arrive on-site?',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey[800],
+                                    const SizedBox(height: 16),
+                                    
+                                    // Customer selection
+                                    Container(
+                                      padding: const EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[50],
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: Colors.grey[200]!),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 12,
+                                                backgroundColor: AppColors.unidocPrimaryBlue.withOpacity(0.2),
+                                                child: const Text('1', style: TextStyle(fontSize: 12, color: AppColors.unidocPrimaryBlue)),
+                                              ),
+                                              const SizedBox(width: 8),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Select',
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey[800],
+                                                    ),
+                                                  ),
+                                                  const Text(
+                                                    'Customer',
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: AppColors.unidocPrimaryBlue,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Icon(Icons.arrow_drop_down, color: Colors.grey[600]),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            
-                            const SizedBox(height: 16),
-                            
-                            // Response box
-                            Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 16),
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: AppColors.unidocPrimaryBlue,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "We'll be there in about 30 minutes.",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.white,
+                                    
+                                    const SizedBox(height: 12),
+                                    
+                                    // Service details
+                                    Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 12,
+                                          backgroundColor: Colors.grey[200],
+                                          child: Text('2', style: TextStyle(fontSize: 12, color: Colors.grey[700])),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          'Service Details',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.grey[600],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                              
+                              // Customer chat example
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                child: Row(
+                                  children: [
+                                    const CircleAvatar(
+                                      backgroundColor: AppColors.unidocLightBlue,
+                                      radius: 20,
+                                      child: Text('JD', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'John Doe',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                  color: Colors.grey[800],
+                                                ),
+                                              ),
+                                              Text(
+                                                'Now',
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.grey[500],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            'Online',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey[500],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              
+                              const SizedBox(height: 16),
+                              
+                              // Message box
+                              Container(
+                                margin: const EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[100],
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'When will you arrive on-site?',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey[800],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              
+                              const SizedBox(height: 16),
+                              
+                              // Response box
+                              Container(
+                                margin: const EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: AppColors.unidocPrimaryBlue,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "We'll be there in about 30 minutes.",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         
                         // Feature icons on sides
@@ -476,7 +478,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ],
                             ),
-                            child: Icon(LucideIcons.fileText, color: AppColors.unidocSecondaryOrange, size: 20),
+                            child: const Icon(LucideIcons.fileText, color: AppColors.unidocSecondaryOrange, size: 20),
                           ),
                         ),
                         
@@ -495,7 +497,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ],
                             ),
-                            child: Icon(LucideIcons.clipboardCheck, color: AppColors.unidocSuccess, size: 20),
+                            child: const Icon(LucideIcons.clipboardCheck, color: AppColors.unidocSuccess, size: 20),
                           ),
                         ),
                         
@@ -514,7 +516,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ],
                             ),
-                            child: Icon(LucideIcons.mapPin, color: Colors.redAccent, size: 20),
+                            child: const Icon(LucideIcons.mapPin, color: Colors.redAccent, size: 20),
                           ),
                         ),
                         
@@ -533,7 +535,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ],
                             ),
-                            child: Icon(LucideIcons.calendarClock, color: AppColors.unidocLightBlue, size: 20),
+                            child: const Icon(LucideIcons.calendarClock, color: AppColors.unidocLightBlue, size: 20),
                           ),
                         ),
                         
@@ -552,7 +554,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ],
                             ),
-                            child: Icon(LucideIcons.messageSquare, color: AppColors.unidocCyanBlue, size: 20),
+                            child: const Icon(LucideIcons.messageSquare, color: AppColors.unidocCyanBlue, size: 20),
                           ),
                         ),
                       ],
@@ -571,7 +573,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Column(
+                        const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(LucideIcons.home, size: 20, color: AppColors.unidocPrimaryBlue),
@@ -731,7 +733,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: 'name@example.com',
-                  prefixIcon: Icon(LucideIcons.mail, size: 20, color: AppColors.unidocMedium),
+                  prefixIcon: const Icon(LucideIcons.mail, size: 20, color: AppColors.unidocMedium),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide(color: AppColors.border),
@@ -761,7 +763,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: _obscurePassword,
                 decoration: InputDecoration(
                   hintText: '••••••••',
-                  prefixIcon: Icon(LucideIcons.lock, size: 20, color: AppColors.unidocMedium),
+                  prefixIcon: const Icon(LucideIcons.lock, size: 20, color: AppColors.unidocMedium),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscurePassword ? LucideIcons.eyeOff : LucideIcons.eye,

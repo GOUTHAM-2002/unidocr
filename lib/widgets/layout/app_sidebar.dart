@@ -6,7 +6,8 @@ import 'package:unidoc/theme/app_theme.dart';
 import 'package:unidoc/widgets/common/unidoc_logo.dart'; // For logo
 
 class AppSidebar extends StatelessWidget {
-  const AppSidebar({super.key});
+  final bool isCompact;
+  const AppSidebar({super.key, required this.isCompact});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class AppSidebar extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return Container(
-      width: 260, // Slightly wider for better text fit with icons
+      width: isCompact ? 200 : 260, // Adjust width based on compact mode
       decoration: BoxDecoration(
         color: theme.brightness == Brightness.dark ? AppColors.unidocDark.withOpacity(0.5) : AppColors.sidebarBackground, // Example dark mode adaptation
         border: Border(right: BorderSide(color: AppColors.sidebarBorder, width: 1)),
@@ -33,10 +34,11 @@ class AppSidebar extends StatelessWidget {
                   children: [
                     UnidocLogo(size: 32, lightColor: colorScheme.primary, darkColor: colorScheme.secondary), // Themed logo
                     const SizedBox(width: 12),
-                    Text(
-                      'Unidoc',
-                      style: AppTextStyles.h3.copyWith(color: colorScheme.primary, fontWeight: FontWeight.bold),
-                    ),
+                    if (!isCompact)
+                      Text(
+                        'Unidoc',
+                        style: AppTextStyles.h3.copyWith(color: colorScheme.primary, fontWeight: FontWeight.bold),
+                      ),
                   ],
                 ),
               ),
@@ -129,16 +131,17 @@ class AppSidebar extends StatelessWidget {
               children: [
                 Icon(icon, color: isLogout ? AppColors.unidocError : iconColor, size: 20),
                 const SizedBox(width: 16),
-                Expanded(
-                  child: Text(
-                    title,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: isLogout ? AppColors.unidocError : textColor,
-                      fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
+                if (!isCompact || isActive) // Show text if not compact or if it's active
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: isLogout ? AppColors.unidocError : textColor,
+                        fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
                 if (isActive) // Small active indicator dot or line
                   Container(
                     width: 4,

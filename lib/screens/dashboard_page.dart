@@ -82,10 +82,10 @@ class _DashboardPageState extends State<DashboardPage> {
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
         title: Text('Old Dashboard Page (To Be Replaced)', style: textTheme.titleLarge),
-        backgroundColor: colorScheme.surfaceVariant,
+        backgroundColor: colorScheme.surfaceContainerHighest,
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unidoc/l10n/app_localizations.dart';
 
 enum ServiceCallStatus {
   scheduled,
@@ -53,7 +54,27 @@ class ServiceCall {
     }
   }
   
-  static String getStatusText(ServiceCallStatus status) {
+  static String? getStatusText(ServiceCallStatus status, {BuildContext? context}) {
+    // If context is provided and AppLocalizations is available, use localized strings
+    if (context != null) {
+      final l10n = AppLocalizations.of(context);
+      switch (status) {
+        case ServiceCallStatus.scheduled:
+          return l10n?.scheduled ?? 'Scheduled';
+        case ServiceCallStatus.inProgress:
+          return l10n?.inProgress ?? 'In Progress';
+        case ServiceCallStatus.incomplete:
+          return l10n?.incomplete ?? 'Incomplete';
+        case ServiceCallStatus.awaitingSignature:
+          return l10n?.awaitingSignature ?? 'Awaiting Signature';
+        case ServiceCallStatus.completed:
+          return l10n?.completed ?? 'Completed';
+        case ServiceCallStatus.pending:
+          return l10n?.pending ?? 'Pending';
+      }
+    }
+    
+    // Fallback to hardcoded English strings if context is not provided
     switch (status) {
       case ServiceCallStatus.scheduled:
         return 'Scheduled';

@@ -4,6 +4,12 @@ import 'package:unidoc/screens/dashboard_screen.dart';
 import 'package:unidoc/screens/splash_screen.dart';
 import 'package:unidoc/screens/login_screen.dart';
 import 'package:unidoc/screens/schedule_screen.dart';
+import 'package:unidoc/screens/settings_screen.dart';
+import 'package:unidoc/screens/customers_page.dart';
+import 'package:unidoc/screens/agreements_page.dart';
+import 'package:unidoc/screens/documents_screen.dart';
+import 'package:unidoc/screens/users_screen.dart';
+import 'package:unidoc/screens/admin_panel_screen.dart';
 import 'package:unidoc/widgets/layout/main_layout.dart';
 
 // Placeholder screen generator
@@ -49,12 +55,12 @@ class AppRouter {
           GoRoute(
             path: RoutePaths.customers,
             name: RouteNames.customers,
-            builder: (c, s) => _placeholderScreen(c, s, 'Customers'),
+            builder: (c, s) => const CustomersPage(),
           ),
           GoRoute(
             path: RoutePaths.agreements,
             name: RouteNames.agreements,
-            builder: (c, s) => _placeholderScreen(c, s, 'Agreements'),
+            builder: (c, s) => const AgreementsPage(),
           ),
           GoRoute(
             path: RoutePaths.chat,
@@ -69,17 +75,17 @@ class AppRouter {
           GoRoute(
             path: RoutePaths.documents,
             name: RouteNames.documents,
-            builder: (c, s) => _placeholderScreen(c, s, 'Documents'),
+            builder: (c, s) => const DocumentsScreen(),
           ),
           GoRoute(
             path: RoutePaths.users,
             name: RouteNames.users,
-            builder: (c, s) => _placeholderScreen(c, s, 'Users'),
+            builder: (c, s) => const UsersScreen(),
           ),
           GoRoute(
             path: RoutePaths.adminPanel,
             name: RouteNames.adminPanel,
-            builder: (c, s) => _placeholderScreen(c, s, 'Admin Panel'),
+            builder: (c, s) => const AdminPanelScreen(),
           ),
           GoRoute(
             path: RoutePaths.agentManagement,
@@ -89,7 +95,7 @@ class AppRouter {
           GoRoute(
             path: RoutePaths.settings,
             name: RouteNames.settings,
-            builder: (c, s) => _placeholderScreen(c, s, 'Settings'),
+            builder: (c, s) => const SettingsScreen(),
           ),
         ],
       ),

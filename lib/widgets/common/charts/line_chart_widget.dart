@@ -64,10 +64,10 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
             ),
             titlesData: FlTitlesData(
               show: true,
-              rightTitles: AxisTitles(
+              rightTitles: const AxisTitles(
                 sideTitles: SideTitles(showTitles: false),
               ),
-              topTitles: AxisTitles(
+              topTitles: const AxisTitles(
                 sideTitles: SideTitles(showTitles: false),
               ),
               bottomTitles: AxisTitles(
@@ -140,8 +140,7 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
             lineTouchData: LineTouchData(
               enabled: true,
               touchTooltipData: LineTouchTooltipData(
-                tooltipBgColor: Colors.white,
-                tooltipRoundedRadius: 8,
+                getTooltipColor: (_) => Colors.white,
                 tooltipBorder: BorderSide(
                   color: AppColors.border,
                   width: 1,
@@ -211,10 +210,7 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
       text = widget.performanceData[index].name;
     }
 
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      child: Text(text, style: style),
-    );
+    return Text(text, style: style);
   }
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
@@ -224,9 +220,6 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
       fontSize: 12,
     );
 
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      child: Text(value.toInt().toString(), style: style),
-    );
+    return Text(value.toInt().toString(), style: style);
   }
 } 

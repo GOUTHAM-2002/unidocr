@@ -24,13 +24,11 @@ class ServiceCallCard extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
-    
     final Color statusColor = ServiceCall.getStatusColor(serviceCall.status);
-    final String statusText = ServiceCall.getStatusText(serviceCall.status);
+    final String statusText = ServiceCall.getStatusText(serviceCall.status) ?? '';
     
     // Style constants for 3D effect
-    final borderWidth = 4.0;
-    
+    const borderWidth = 4.0;
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: InkWell(

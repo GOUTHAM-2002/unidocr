@@ -8,13 +8,15 @@ class DummyDataService {
       name: 'John Doe',
       role: 'Student',
       avatarUrl: 'https://i.pravatar.cc/150?img=1',
+      lastActive: DateTime.now(),
     ),
     User(
-      id: '2',
+      id: '2', 
       email: 'jane.smith@example.com',
       name: 'Jane Smith',
       role: 'Professor',
       avatarUrl: 'https://i.pravatar.cc/150?img=2',
+      lastActive: DateTime.now(),
     ),
     User(
       id: '3',
@@ -22,7 +24,8 @@ class DummyDataService {
       name: 'Mike Wilson',
       role: 'Student',
       avatarUrl: 'https://i.pravatar.cc/150?img=3',
-    ),
+      lastActive: DateTime.now(),
+    )
   ];
 
   static final List<Map<String, dynamic>> courses = [

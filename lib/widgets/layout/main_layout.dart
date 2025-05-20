@@ -13,20 +13,20 @@ class MainLayout extends StatelessWidget {
     bool isDesktop = MediaQuery.of(context).size.width > 800; // Example breakpoint
 
     return Scaffold(
-      appBar: isDesktop ? null : const PreferredSize(
+      appBar: isDesktop ? null : PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: AppHeader(), // Will be a simple AppBar for mobile
+        child: AppHeader(isMobile: true), // Will be a simple AppBar for mobile
       ),
-      drawer: isDesktop ? null : const Drawer(child: AppSidebar()), // Sidebar in a drawer for mobile
+      drawer: isDesktop ? null : Drawer(child: AppSidebar(isCompact: true)), // Sidebar in a drawer for mobile
       body: Row(
         children: [
           if (isDesktop)
-            const AppSidebar(), // Permanent sidebar for desktop
+            const AppSidebar(isCompact: false), // Permanent sidebar for desktop
           Expanded(
             child: Column(
               children: [
                 if (isDesktop)
-                  const AppHeader(), // Header above content for desktop
+                  const AppHeader(isMobile: false), // Header above content for desktop
                 Expanded(
                   child: child, // Main content area
                 ),

@@ -190,7 +190,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProvid
                     'Schedule Hub',
                     style: textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: colorScheme.onBackground,
+                      color: colorScheme.onSurface,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -787,7 +787,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProvid
   }
   
   Widget _buildDateControls(TextTheme textTheme, ColorScheme colorScheme) {
-    final formattedDate = 'May 18th, 2025'; // Hardcoded to match screenshot
+    const formattedDate = 'May 18th, 2025'; // Hardcoded to match screenshot
     
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -822,7 +822,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProvid
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(LucideIcons.calendar, size: 16, color: AppColors.unidocMedium),
+                const Icon(LucideIcons.calendar, size: 16, color: AppColors.unidocMedium),
                 const SizedBox(width: 8),
                 Text(
                   formattedDate,
@@ -1224,7 +1224,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProvid
                               ],
                             ),
                             child: Text(
-                              ServiceCall.getStatusText(serviceCall.status),
+                              ServiceCall.getStatusText(serviceCall.status) ?? '',
                               style: textTheme.bodySmall?.copyWith(
                                 color: ServiceCall.getStatusColor(serviceCall.status),
                                 fontWeight: FontWeight.w600,
